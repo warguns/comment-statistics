@@ -1,23 +1,32 @@
-# Slim Framework 4 Skeleton Application
+# Comment Statistics
 
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
+Evaluates if the overall mood of the comments provided to the API are positive or negative in Spanish.
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
+You must configure the `OPENAI_API_KEY` ENV var inside the docker-compose.yml
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+Request example:
 
-## Install the Application
-
-Run this command from the directory in which you want to install your new Slim Framework application. You will require PHP 7.4 or newer.
-
-```bash
-composer create-project slim/slim-skeleton [my-app-name]
+POST {docker-url}:8080/comment
+```json
+{
+  "comments": [
+    "No te lo tomes a mal, pero no te veo dando el perfil para infiltrarte en una banda criminal...",
+    "Pelamingas",
+    "Eres un crack!",
+    "Eres un Mamabicho"
+  ]
+}
 ```
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
-
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
+Json Response example: 
+```json
+{
+	"statusCode": 200,
+	"data": {
+		"statistics": 50
+	}
+}
+```
 
 To run the application in development, you can run these commands 
 
