@@ -11,8 +11,8 @@ use OpenAI;
 
 final class OpenAiCommentEvaluator implements CommentEvaluator
 {
-    private const PROMPT = "evalua los siguientes comentarios respondiendo con \"1\" si es un comentario positivo y un 
-    \"0\" si es negativo, respondiendo asi el resultado, en una lista tambien:";
+    private const PROMPT = "evalua las siguientes oraciones solo con \"1\" en el caso que la oracion sea 
+    positiva y un \"0\" en el caso que sea negativa. Respóndeme con una lista de las respuestas separadas por coma:";
     private const AI_MODEL = 'text-davinci-002';
 
     /**
@@ -27,11 +27,17 @@ final class OpenAiCommentEvaluator implements CommentEvaluator
         $client = OpenAI::client($_ENV['OPENAI_API_KEY']);
         $prompt = self::PROMPT . $commentCollection->toPromptString();
 
-        $response = $client->completions()->create([
+        $promptConfiguration = [
             'model' => self::AI_MODEL,
             'prompt' => $prompt,
-        ]);
+        ];
 
-        return json_decode($response['choices'][0]['text'], false, 512, JSON_THROW_ON_ERROR);
+        $response = $client->completions()->create($promptConfiguration);
+
+        if (preg_match('/^[a-zA-Z ]*$/', $response['choices'][0]['text'])) {
+            $response = $client->completions()->create($promptConfiguration);
+        }
+
+        return explode(',', $response['choices'][0]['text']);
     }
 }

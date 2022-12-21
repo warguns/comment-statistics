@@ -9,7 +9,7 @@ final class StatisticsCalculator
     public function calculate(array $commentMoodResults): CommentStatistics
     {
         $goodCount = array_sum($commentMoodResults);
-        $badCount = count($commentMoodResults) - $goodCount;
+        $badCount = (int) count($commentMoodResults) - $goodCount;
 
         return new CommentStatistics($badCount, $goodCount);
     }

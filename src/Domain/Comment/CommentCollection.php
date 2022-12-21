@@ -28,11 +28,6 @@ final class CommentCollection
 
     public function toPromptString(): string
     {
-        $prompt = '';
-        foreach ($this->comments as $comment) {
-            $prompt .= " - \"$comment\"";
-        }
-
-        return $prompt;
+        return '["' . implode('","', $this->comments) . '"]';
     }
 }
