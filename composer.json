@@ -24,7 +24,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "monolog/monolog": "^2.8",
+        "monolog/monolog": "^3.2",
         "openai-php/client": "^0.2.1",
         "php-di/php-di": "^6.4",
         "slim/psr7": "^1.6",
