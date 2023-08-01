@@ -28,7 +28,7 @@
         "openai-php/client": "^0.6.2",
         "php-di/php-di": "^7.0",
         "slim/psr7": "^1.6",
-        "slim/slim": "^4.11"
+        "slim/slim": "^4.12"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
